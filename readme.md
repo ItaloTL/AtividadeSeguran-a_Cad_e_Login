@@ -1,4 +1,4 @@
-# Walkthrough — Sistema de Cadastro e Login Seguro (Vesper Aurora)
+Sistema de Cadastro e Login Seguro (Vesper Aurora)
 
 ## O que foi desenvolvido
 
