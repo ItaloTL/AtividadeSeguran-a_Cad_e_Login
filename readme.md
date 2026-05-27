@@ -4,6 +4,10 @@ Sistema de Cadastro e Login Seguro (Vesper Aurora)
 
 Sistema completo de **Cadastro e Login** em PHP com design premium exclusivo (**Vesper Aurora**), seguindo boas práticas de segurança para aplicações web.
 
+### Quem desenvolveu
+
+Desenvolvido por: Italo Trancoso Lopes e Gustavo Apolonio da Silva Reis
+
 ---
 
 ## 📁 Arquivos Entregues
