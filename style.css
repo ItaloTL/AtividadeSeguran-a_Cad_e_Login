@@ -1,0 +1,738 @@
+/* ============================================================
+   Sistema de Cadastro e Login Seguro — Vesper Aurora
+   Arquivo : style.css
+   Descrição: Design system completo com dark mode sofisticado,
+              glassmorphism, gradientes neon e micro-animações.
+   Paleta   : Obsidian (#0B0F19) · Violeta (#8B5CF6) · Ciano (#06B6D4)
+   Fontes   : Inter (body) · Poppins (headings)
+============================================================ */
+
+/* ──────────────────────────────────────────────────────────
+   1. Google Fonts Import
+────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap');
+
+/* ──────────────────────────────────────────────────────────
+   2. CSS Custom Properties (Design Tokens)
+────────────────────────────────────────────────────────── */
+:root {
+    /* Cores base */
+    --bg-primary:      #0B0F19;
+    --bg-secondary:    #111827;
+    --bg-tertiary:     #1A2235;
+
+    /* Glassmorphism */
+    --glass-bg:        rgba(26, 34, 53, 0.65);
+    --glass-border:    rgba(139, 92, 246, 0.18);
+    --glass-shadow:    rgba(0, 0, 0, 0.45);
+
+    /* Cores de destaque */
+    --violet:          #8B5CF6;
+    --violet-light:    #A78BFA;
+    --violet-dark:     #6D28D9;
+    --cyan:            #06B6D4;
+    --cyan-light:      #22D3EE;
+
+    /* Gradiente principal */
+    --gradient-main:   linear-gradient(135deg, var(--violet) 0%, var(--cyan) 100%);
+    --gradient-glow:   linear-gradient(135deg, rgba(139,92,246,0.3), rgba(6,182,212,0.3));
+
+    /* Texto */
+    --text-primary:    #F1F5F9;
+    --text-secondary:  #94A3B8;
+    --text-muted:      #475569;
+
+    /* Estados */
+    --success-bg:      rgba(16, 185, 129, 0.12);
+    --success-border:  rgba(16, 185, 129, 0.35);
+    --success-text:    #34D399;
+    --error-bg:        rgba(239, 68, 68, 0.12);
+    --error-border:    rgba(239, 68, 68, 0.35);
+    --error-text:      #F87171;
+
+    /* Input */
+    --input-bg:        rgba(15, 23, 42, 0.7);
+    --input-border:    rgba(71, 85, 105, 0.5);
+    --input-focus:     var(--violet);
+
+    /* Transições */
+    --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Tipografia */
+    --font-body:       'Inter', system-ui, sans-serif;
+    --font-heading:    'Poppins', sans-serif;
+
+    /* Border radius */
+    --radius-sm:       8px;
+    --radius-md:       14px;
+    --radius-lg:       22px;
+    --radius-xl:       32px;
+}
+
+/* ──────────────────────────────────────────────────────────
+   3. Reset e Base
+────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ──────────────────────────────────────────────────────────
+   4. Fundo Animado — Orbes de Luz (Aurora)
+   Cria profundidade visual sem imagens externas.
+────────────────────────────────────────────────────────── */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat 8s ease-in-out infinite alternate;
+}
+
+body::before {
+    width: 520px;
+    height: 520px;
+    top: -140px;
+    left: -140px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 70%);
+}
+
+body::after {
+    width: 420px;
+    height: 420px;
+    bottom: -120px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, transparent 70%);
+    animation-direction: alternate-reverse;
+    animation-delay: -3s;
+}
+
+@keyframes orbFloat {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* ──────────────────────────────────────────────────────────
+   5. Container Principal — Layout das Páginas
+────────────────────────────────────────────────────────── */
+.va-page {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+/* ──────────────────────────────────────────────────────────
+   6. Card Glassmorphism — Formulários e Painéis
+────────────────────────────────────────────────────────── */
+.va-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow:
+        0 8px 32px var(--glass-shadow),
+        0 0 0 1px rgba(139, 92, 246, 0.06) inset,
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    padding: 48px 44px;
+    width: 100%;
+    max-width: 460px;
+    animation: slideUp 0.5s var(--transition-slow) both;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ──────────────────────────────────────────────────────────
+   7. Logotipo / Marca Vesper Aurora
+────────────────────────────────────────────────────────── */
+.va-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 36px;
+    gap: 10px;
+}
+
+.va-brand__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow:
+        0 0 24px rgba(139, 92, 246, 0.45),
+        0 0 48px rgba(6, 182, 212, 0.2);
+    animation: iconPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% { box-shadow: 0 0 24px rgba(139,92,246,0.45), 0 0 48px rgba(6,182,212,0.2); }
+    50%       { box-shadow: 0 0 36px rgba(139,92,246,0.65), 0 0 72px rgba(6,182,212,0.35); }
+}
+
+.va-brand__name {
+    font-family: var(--font-heading);
+    font-size: 1.65rem;
+    font-weight: 800;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.va-brand__tagline {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* ──────────────────────────────────────────────────────────
+   8. Títulos dos Formulários
+────────────────────────────────────────────────────────── */
+.va-card__title {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.va-card__subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 32px;
+    line-height: 1.55;
+}
+
+/* ──────────────────────────────────────────────────────────
+   9. Grupos de Input — Floating Label Effect
+────────────────────────────────────────────────────────── */
+.va-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.va-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.va-field__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color var(--transition-fast);
+}
+
+.va-field:focus-within .va-field__label {
+    color: var(--violet-light);
+}
+
+.va-field__input {
+    background: var(--input-bg);
+    border: 1.5px solid var(--input-border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 400;
+    padding: 13px 16px;
+    outline: none;
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+    width: 100%;
+    -webkit-appearance: none;
+}
+
+.va-field__input::placeholder {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.va-field__input:focus {
+    border-color: var(--violet);
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.18),
+        0 4px 16px rgba(139, 92, 246, 0.12);
+}
+
+.va-field__input:hover:not(:focus) {
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* ──────────────────────────────────────────────────────────
+   10. Botão Principal — Gradiente + Glow
+────────────────────────────────────────────────────────── */
+.va-btn {
+    background: var(--gradient-main);
+    border: none;
+    border-radius: var(--radius-md);
+    color: #fff;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 14px 24px;
+    position: relative;
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+    width: 100%;
+    overflow: hidden;
+}
+
+.va-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.va-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow:
+        0 8px 24px rgba(139, 92, 246, 0.45),
+        0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.va-btn:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+    box-shadow: none;
+}
+
+.va-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Botão secundário (outline) */
+.va-btn--outline {
+    background: transparent;
+    border: 1.5px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.va-btn--outline:hover {
+    border-color: var(--violet);
+    color: var(--violet-light);
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.2);
+    filter: none;
+}
+
+/* Botão de perigo (logout) */
+.va-btn--danger {
+    background: linear-gradient(135deg, #EF4444, #DC2626);
+}
+
+.va-btn--danger:hover {
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+}
+
+/* ──────────────────────────────────────────────────────────
+   11. Mensagens de Alerta (Sucesso / Erro)
+────────────────────────────────────────────────────────── */
+.va-alert {
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 13px 16px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    animation: alertSlide 0.3s ease-out both;
+    margin-bottom: 4px;
+}
+
+@keyframes alertSlide {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.va-alert--success {
+    background: var(--success-bg);
+    border: 1px solid var(--success-border);
+    color: var(--success-text);
+}
+
+.va-alert--error {
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    color: var(--error-text);
+}
+
+.va-alert__icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* ──────────────────────────────────────────────────────────
+   12. Links de Navegação entre páginas
+────────────────────────────────────────────────────────── */
+.va-nav-link {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+}
+
+.va-nav-link a {
+    color: var(--violet-light);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--transition-fast), text-shadow var(--transition-fast);
+}
+
+.va-nav-link a:hover {
+    color: var(--cyan-light);
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+}
+
+/* ──────────────────────────────────────────────────────────
+   13. Divisor decorativo
+────────────────────────────────────────────────────────── */
+.va-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 0;
+}
+
+.va-divider::before,
+.va-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+}
+
+.va-divider__text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+/* ──────────────────────────────────────────────────────────
+   14. Home — Dashboard Layout
+────────────────────────────────────────────────────────── */
+.va-home {
+    width: 100%;
+    max-width: 860px;
+    padding: 32px 16px;
+}
+
+/* Header do dashboard */
+.va-home__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 20px 32px;
+    margin-bottom: 28px;
+    animation: slideUp 0.4s ease-out both;
+}
+
+.va-home__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.va-home__logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.va-home__logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.va-home__logout {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--radius-sm);
+    color: #F87171;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 9px 18px;
+    transition: all var(--transition-fast);
+}
+
+.va-home__logout:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+}
+
+/* Grid de cards */
+.va-home__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* Card de boas vindas */
+.va-welcome-card {
+    grid-column: 1 / -1;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 36px 40px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.5s 0.1s ease-out both;
+}
+
+.va-welcome-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-glow);
+    pointer-events: none;
+}
+
+.va-welcome-card__avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+    box-shadow: 0 0 32px rgba(139, 92, 246, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.va-welcome-card__content {
+    position: relative;
+    z-index: 1;
+}
+
+.va-welcome-card__greeting {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.va-welcome-card__name {
+    font-family: var(--font-heading);
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.va-welcome-card__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--success-text);
+    font-weight: 500;
+}
+
+.va-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success-text);
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* Cards de info */
+.va-info-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 28px 28px;
+    animation: slideUp 0.5s ease-out both;
+}
+
+.va-info-card:nth-child(3) { animation-delay: 0.15s; }
+.va-info-card:nth-child(4) { animation-delay: 0.25s; }
+
+.va-info-card__icon {
+    font-size: 22px;
+    margin-bottom: 14px;
+}
+
+.va-info-card__label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.va-info-card__value {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.va-info-card__value--gradient {
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* ──────────────────────────────────────────────────────────
+   15. Responsividade
+────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .va-card {
+        padding: 36px 24px;
+        border-radius: var(--radius-lg);
+    }
+
+    .va-home__header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 20px 24px;
+    }
+
+    .va-welcome-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 24px;
+    }
+
+    .va-home__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .va-brand__name {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .va-card {
+        padding: 28px 18px;
+    }
+}
+
+/* ──────────────────────────────────────────────────────────
+   16. Utilitários
+────────────────────────────────────────────────────────── */
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-2 { margin-bottom: 8px; }
+.text-center { text-align: center; }
+.w-full { width: 100%; }
